@@ -1,30 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react';
+import { AppContext } from '../context';
 
 const Folders = function() {
-    
-    const [addFolder, setAddFolder] = React.useState(false);
-    const [input, setInput] = React.useState("");
-    const [list, setList] = React.useState([]);
-
-
-    const handleSubmit = function(event) {
-      event.preventDefault();
-      const id = Math.floor(Math.random * 10000);
-      const newItem = {id:id, title: input}
-      setList(function(prevState) {
-        return ([...prevState, newItem])
-      });
-      setAddFolder(false);
-      setInput("");
-    };
-  
-
-
+    const {addFolder, handleChange, handleSubmit, input, list} = useContext(AppContext);
     return (
         <React.Fragment>
             <div className = "sidebar-content">
-
-                {/* ADD NEW FOLDER */}
                 {addFolder && 
                 <div className = "new-folder">
                     <div className = "icon-wrapper"><i className = "fa-regular fa-folder"></i></div>
@@ -34,12 +15,11 @@ const Folders = function() {
                                     type = "text"
                                     value = {input}
                                     placeholder = "eg. Business ideas"
-                                    onChange = {function(event) {setInput(event.target.value)}}
+                                    onChange = {function(event) {handleChange(event)}} 
                             />
                         </div>
                     </form>
                 </div>}
-
 
                 {list.map(function(item) {
                     const {id, title} = item;
@@ -50,22 +30,10 @@ const Folders = function() {
                         </div>
                     );
                 })}
-                
-
-                
             </div>
-           
-
-            {/* DELETE & ADD FOLDER */}
-            <div className = "sidebar-footer">
-                <div className = "icon-wrapper"><i className = "fa-solid fa-trash dlt-btn"></i></div>
-                <div className = "icon-wrapper" onClick = {function() {setAddFolder(true)}}><i className = "fa-solid fa-plus add-btn"></i></div>
-            </div>
-
-
         </React.Fragment>
     );
 };
 
 
-export default Folders
+export default Folders;
