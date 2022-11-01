@@ -2,7 +2,17 @@ import React, {useContext} from 'react';
 import { AppContext } from '../context';
 
 const Folders = function() {
-    const {addFolder, handleChange, handleSubmit, input, list} = useContext(AppContext);
+   
+ 
+   
+   
+
+    const {addFolder,
+           handleChange,
+           handleSubmit,
+           input,
+           list,
+           setFolderFocus} = useContext(AppContext);
     return (
         <React.Fragment>
             <div className = "sidebar-content">
@@ -24,7 +34,7 @@ const Folders = function() {
                 {list.map(function(item) {
                     const {id, title} = item;
                     return (
-                        <div className = "folder" key = {id} >
+                        <div className = "folder" onClick = {function() {setFolderFocus(title)}} key = {id} >
                             <div className = "icon-wrapper"><i className = "fa-regular fa-folder"></i></div>
                             <h4 className = "folder-heading">{title}</h4>
                         </div>
