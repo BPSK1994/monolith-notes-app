@@ -79,8 +79,8 @@ const Sidebar = function() {
             }
         }
 
-        const toggleFocusStyles = function(id) {
-            if(id === folderFocus) {
+        const toggleFocusStyles = function(title) {
+            if(title === folderFocus) {
                 return "folder folder-active";
             } else {
                 return "folder folder-inactive";
@@ -141,7 +141,7 @@ const Sidebar = function() {
                     {folderListSort.map(function(item) {
                         const {id, title} = item;
                         return (
-                            <div className = {toggleFocusStyles(id)} onClick = {function() {setFolderFocus(id)}} key = {id} >
+                            <div className = {toggleFocusStyles(title)} onClick = {function() {setFolderFocus(title)}} key = {id} >
                                 <div className = "icon-wrapper" onClick = {function() {deleteFolder(id,title)}}><i className = {editFolder ? "fa-solid fa-circle-minus dlt-btn" : "fa-regular fa-folder folder-icon"}></i></div>
 
                                 {(folderID === id && editFolderTitle) ? <form  className = "folder-input" onSubmit = {function(event) {handleEditSubmit(event)}}>

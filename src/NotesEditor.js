@@ -5,7 +5,7 @@ const NotesEditor = function() {
     
     
     
-    const {folderFocus, allNotes, setAllNotes, toggleEditor, setToggleEditor, formData, setFormData, isEditing, setIsEditing, editID, setEditID} = useContext(AppContext);
+    const {folderFocus, allNotes, setAllNotes, formData, setFormData, isEditing, setIsEditing, editID, setEditID, deleteNote, setDeleteNote} = useContext(AppContext);
 
 
     // Add note object to the noteList array of objects
@@ -24,6 +24,7 @@ const NotesEditor = function() {
             setFormData({title: "", content: ""});
             setEditID(null);
             setIsEditing(false);
+            setDeleteNote(false);
         } else {
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -59,14 +60,14 @@ const NotesEditor = function() {
                 
                 <div className = "editor">
                     <div className = "editor-tools">
-                        <div className = "new-note-btn" onClick = {function() {setToggleEditor(!toggleEditor)}}>
-                            <i className = "fa-solid fa-note-sticky"></i>
-                        </div>
+                        {deleteNote && <div className = "dlt-btn">
+                            <i className = "fa-solid fa-trash"></i>
+                        </div>}
                     </div>
                 </div>
                     
 
-                {toggleEditor && <div className = "note">
+                <div className = "note">
                     <form className = "form" onSubmit  = {function(event) {handleSubmit(event)}}>
                         <div className = "form-control">
                             <input 
@@ -85,12 +86,12 @@ const NotesEditor = function() {
                                 onChange = {handleChange}
                             />  
 
-                            <button className = "submit-note-btn"
-                                    type = "submit">{isEditing ? "Edit" : "Add"}
+                            <button className = {isEditing ? "submit-note-btn clr" : "submit-note-btn"}
+                                    type = "submit">{isEditing ? "Update" : "Add"}
                             </button>
                         </div>
                     </form>
-                </div>}
+                </div>
             </section>
         </React.Fragment>
     );

@@ -8,14 +8,11 @@ const AppContext = createContext();
 
 const AppProvider = function({children}) {
 
-
-
     const [list, setList] = React.useState(folderArrayLocalStorange);
     const [allNotes, setAllNotes] = React.useState(NotesArrayLocalStorange);
 
     const [folderFocus, setFolderFocus] = React.useState("");
-
-    const [toggleEditor, setToggleEditor] = React.useState(true);
+    const [deleteNote, setDeleteNote] = React.useState(false);
     
 
     const [editID, setEditID] = React.useState(null);
@@ -46,8 +43,8 @@ const AppProvider = function({children}) {
             setFolderFocus,
             allNotes,
             setAllNotes,
-            toggleEditor,
-            setToggleEditor, 
+            deleteNote,
+            setDeleteNote,
             formData,
             setFormData,
             editID,
