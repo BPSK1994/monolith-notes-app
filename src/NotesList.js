@@ -2,18 +2,25 @@ import React, {useContext} from 'react';
 import { AppContext } from './context';
 
 const NotesList = function() {
-    const {folderFocus, allNotes, formData, setFormData} = useContext(AppContext);
+    const {folderFocus, allNotes, formData, setFormData, isEditing, setIsEditing, setEditID} = useContext(AppContext);
 
     const editNote = function(id) {
         console.log(id);
+        const editItem = allNotes.find(function(item) {
+            return item.id === id;
+        });
+        console.log(editItem);
+        setIsEditing(true);
+        setEditID(id);
+        setFormData({
+            title: editItem.title,
+            content: editItem.content
+        });
     };
 
 
     return (
         <section className = "notes-list" >
-            <div className = "notes-search">
-
-            </div>
             <div className = "folder-notes">
                 {allNotes.map(function(item) {
                     const {id, parentFolder, title, content, dateCreated} = item;

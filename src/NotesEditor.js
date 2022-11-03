@@ -5,14 +5,27 @@ const NotesEditor = function() {
     
     
     
-    const {folderFocus, setAllNotes, toggleEditor, setToggleEditor, formData, setFormData} = useContext(AppContext);
+    const {folderFocus, allNotes, setAllNotes, toggleEditor, setToggleEditor, formData, setFormData, isEditing, setIsEditing, editID, setEditID} = useContext(AppContext);
 
 
     // Add note object to the noteList array of objects
     const handleSubmit = function(event) {
         event.preventDefault();
-        setFormData({title: "", content: ""});
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        if(isEditing) {
+            setAllNotes(
+                allNotes.map(function(item) {
+                    if(item.id === editID) {
+                        return ({...item, title: formData.title, content: formData.content});
+                    }
+                    return item;
+                })
+            );
+            setFormData({title: "", content: ""});
+            setEditID(null);
+            setIsEditing(false);
+        } else {
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
         const todaysDate = new Date();
         const timeCreated = `${todaysDate.getHours()}:${todaysDate.getMinutes()} hrs`
@@ -24,6 +37,12 @@ const NotesEditor = function() {
         setAllNotes(function(prevState) {
             return [...prevState, newItem];
         });
+
+        setFormData({title: "", content: ""});
+        }
+
+        
+
     }
 
     const handleChange = function(event) {
@@ -67,7 +86,7 @@ const NotesEditor = function() {
                             />  
 
                             <button className = "submit-note-btn"
-                                    type = "submit">Add
+                                    type = "submit">{isEditing ? "Edit" : "Add"}
                             </button>
                         </div>
                     </form>

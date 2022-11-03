@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from "./sidebar/Sidebar";
+import Sidebar from "./components/Sidebar";
 import NotesList from './NotesList';
 import NotesEditor from './NotesEditor';
 

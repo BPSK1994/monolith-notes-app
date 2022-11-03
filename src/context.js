@@ -1,17 +1,22 @@
 import React, {useContext, createContext} from 'react';
 
 let folderArrayLocalStorange = JSON.parse(localStorage.getItem("foldersArray")) || [];
+let NotesArrayLocalStorange = JSON.parse(localStorage.getItem("NotesArray")) || [];
+
 
 const AppContext = createContext();
 
 const AppProvider = function({children}) {
 
-    const [addFolder, setAddFolder] = React.useState(false);
-    const [input, setInput] = React.useState("");
+
+
     const [list, setList] = React.useState(folderArrayLocalStorange);
-    const [allNotes, setAllNotes] = React.useState([]);
+    const [allNotes, setAllNotes] = React.useState(NotesArrayLocalStorange);
+
     const [folderFocus, setFolderFocus] = React.useState("");
+
     const [toggleEditor, setToggleEditor] = React.useState(true);
+    
 
     const [editID, setEditID] = React.useState(null);
     const [isEditing, setIsEditing] = React.useState(false);
@@ -27,39 +32,16 @@ const AppProvider = function({children}) {
         localStorage.setItem("foldersArray", JSON.stringify(list))
     }, [list]);
 
-
-
-    const handleSubmit = function(event) {
-      event.preventDefault();
-      const id = Math.floor(Math.random() * 10000);
-      const newItem = {id:id, title: input}
-      setList(function(prevState) {
-        return ([...prevState, newItem])
-      });
-      setAddFolder(false);
-      setInput("");
-    };
-
-    const toggleInput = function() {
-        setAddFolder(function(prevState) {
-            return !prevState;
-        });
-    };
-
-    const handleChange = function(event) {
-        setInput(event.target.value);
-    };
+    React.useEffect(function() {
+        localStorage.setItem("NotesArray", JSON.stringify(allNotes))
+    }, [allNotes]);
 
 
 
     return (
         <AppContext.Provider value = {{
-            addFolder,
-            input,
             list,
-            handleChange,
-            handleSubmit,
-            toggleInput,
+            setList,
             folderFocus,
             setFolderFocus,
             allNotes,
@@ -70,10 +52,8 @@ const AppProvider = function({children}) {
             setFormData,
             editID,
             setEditID,
-            editID,
-            setEditID,
             isEditing,
-            setIsEditing
+            setIsEditing,
         }}>
             {children}
         </AppContext.Provider>
