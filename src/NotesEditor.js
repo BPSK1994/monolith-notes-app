@@ -24,7 +24,6 @@ const NotesEditor = function() {
             setFormData({title: "", content: ""});
             setEditID(null);
             setIsEditing(false);
-            setDeleteNote(false);
         } else {
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -53,6 +52,16 @@ const NotesEditor = function() {
         });
     }
 
+    const deleteSelectedNote = function() {
+        setAllNotes(allNotes.filter(function(item) {
+            return item.id !== noteFocus;
+        })
+        );
+        setFormData({title: "", content: ""});
+
+        
+
+    }
 
     return (
         <React.Fragment>
@@ -60,7 +69,7 @@ const NotesEditor = function() {
                 
                 <div className = "editor">
                     <div className = "editor-tools">
-                        {deleteNote && <div className = "dlt-btn">
+                        {deleteNote && <div onClick = {function(){deleteSelectedNote()}}className = "dlt-btn">
                             <i className = "fa-solid fa-trash"></i>
                         </div>}
                     </div>

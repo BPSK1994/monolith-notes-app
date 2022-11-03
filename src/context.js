@@ -12,7 +12,7 @@ const AppProvider = function({children}) {
     const [allNotes, setAllNotes] = React.useState(NotesArrayLocalStorange);
 
     const [folderFocus, setFolderFocus] = React.useState("");
-    const [deleteNote, setDeleteNote] = React.useState(false);
+    const [deleteNote, setDeleteNote] = React.useState(true);
     const [noteFocus, setNoteFocus] = React.useState(null);
     
 
