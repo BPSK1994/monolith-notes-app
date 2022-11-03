@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { AppContext } from './context';
 
 const NotesList = function() {
-    const {folderFocus, allNotes, formData, setFormData, isEditing, setIsEditing, setEditID, deleteNote, setDeleteNote} = useContext(AppContext);
+    const {folderFocus, allNotes, formData, setFormData, isEditing, setIsEditing, setEditID, deleteNote, setDeleteNote, noteFocus, setNoteFocus} = useContext(AppContext);
 
     const editNote = function(id) {
         const editItem = allNotes.find(function(item) {
@@ -14,10 +14,16 @@ const NotesList = function() {
             title: editItem.title,
             content: editItem.content
         });
-        setDeleteNote(function(preState) {
-            return !preState;
-        });
+        
     };
+
+    const toggleFocusStyle = function(id) {
+        if(id === noteFocus) {
+            return "folder-item-container folder-active";
+        } else {
+            return "folder-item-container folder-inactive"
+        }
+    }
 
 
     return (
@@ -27,8 +33,8 @@ const NotesList = function() {
                     const {id, parentFolder, title, content, dateCreated} = item;
                     if(parentFolder === folderFocus) {
                         return (
-                            <div className = "folder-item-container">
-                                <div className = "folder-item" onClick = {function() {editNote(id)}}>
+                            <div className ={toggleFocusStyle(id)} >
+                                <div className = "folder-item" onClick = {function() {editNote(id); setNoteFocus(id)}}>
                                     <h3 className = "folder-item-title">{title}</h3>
                                     <p>{content}</p>
                                     <h5>{dateCreated}</h5>

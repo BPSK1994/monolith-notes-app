@@ -13,6 +13,7 @@ const AppProvider = function({children}) {
 
     const [folderFocus, setFolderFocus] = React.useState("");
     const [deleteNote, setDeleteNote] = React.useState(false);
+    const [noteFocus, setNoteFocus] = React.useState(null);
     
 
     const [editID, setEditID] = React.useState(null);
@@ -51,6 +52,8 @@ const AppProvider = function({children}) {
             setEditID,
             isEditing,
             setIsEditing,
+            noteFocus,
+            setNoteFocus
         }}>
             {children}
         </AppContext.Provider>

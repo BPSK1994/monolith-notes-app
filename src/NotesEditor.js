@@ -5,7 +5,7 @@ const NotesEditor = function() {
     
     
     
-    const {folderFocus, allNotes, setAllNotes, formData, setFormData, isEditing, setIsEditing, editID, setEditID, deleteNote, setDeleteNote} = useContext(AppContext);
+    const {folderFocus, allNotes, setAllNotes, formData, setFormData, isEditing, setIsEditing, editID, setEditID, deleteNote, setDeleteNote, noteFocus, setNoteFocus} = useContext(AppContext);
 
 
     // Add note object to the noteList array of objects
